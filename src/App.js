@@ -5,35 +5,30 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state={
-      firstValue: 0,
-      secondValue: 0,
-      operator: " ",
+      firstValue:"",
+      secondValue:"",
+      operator: "",
+      equals: ""
     }
 
-    this.handleChangeOne = this.handleChangeOne.bind(this);
-    this.handleChangeTwo = this.handleChangeTwo.bind(this);
+    this.grabTheNumber = this.grabTheNumber.bind(this);
+    this.grabOperator = this.grabOperator.bind(this);
+    this.equals = this.equals.bind(this);
   }
 
-  handleChangeOne(event) {
+grabTheNumber(event) {
     this.setState({firstValue: event.target.value})
     console.log(event.target.value)
 }
 
-handleChangeTwo(event) {
-  this.setState({secondValue: event.target.value})
+grabOperator(event) {
+ this.setState({operator: event.target.value})
+ console.log(event.target.value)
+}
+
+equals(event) {
+  this.setState({equals: event.target.value})
   console.log(event.target.value)
-}
-
-add() {
- console.log("+")
-}
-
-subtract() {
-  console.log("-")
-}
-
-equals() {
-  console.log("=")
 }
 
 divStyle = {
@@ -74,18 +69,37 @@ buttonEqualsStyle = {
   paddingLeft: "10px"
 }
 
+numberStyle = {
+  padding: "20px"
+}
+
+row1Style = {
+  marginTop: "40px"
+}
+
   render() {
     return (
       <div className="App">
-        <div className="inputDiv" style={this.divStyle} >
-          <input type="text" onChange={this.handleChangeOne} value={this.state.value} />
-          <input type="text" onChange={this.handleChangeTwo} value={this.state.value} style={this.boxStyle}/>
+        <div className="row1" style={this.row1Style}>
+          <button onClick={this.grabTheNumber} value={1} style={this.numberStyle}>1</button>
+          <button onClick={this.grabTheNumber} value={2} style={this.numberStyle}>2</button>
+          <button onClick={this.grabTheNumber} value={3} style={this.numberStyle}>3</button>
+        </div>
+        <div className="row2">
+          <button onClick={this.grabTheNumber} value={4} style={this.numberStyle}>4</button>
+          <button onClick={this.grabTheNumber} value={5} style={this.numberStyle}>5</button>
+          <button onClick={this.grabTheNumber} value={6} style={this.numberStyle}>6</button>
+        </div>
+        <div className="row3">
+          <button onClick={this.grabTheNumber} value={7} style={this.numberStyle}>7</button>
+          <button onClick={this.grabTheNumber} value={8} style={this.numberStyle}>8</button>
+          <button onClick={this.grabTheNumber} value={9} style={this.numberStyle}>9</button>
         </div>
         <div className="buttonDiv" style={this.buttonDivStyle}>
-          <button type="submit" onClick={this.add} style={this.buttonStyleAdd}>+</button>
-          <button type="submit" onClick={this.subtract} style={this.buttonStyleSubtract}>-</button>
+          <button value="+" onClick={this.grabOperator} style={this.buttonStyleAdd}>+</button>
+          <button value="-" onClick={this.grabOperator} style={this.buttonStyleSubtract}>-</button>
         <div className="equalsDiv">
-          <button type="submit" onClick={this.equals} style={this.buttonEqualsStyle}>=</button>
+          <button value="=" onClick={this.equals} style={this.buttonEqualsStyle}>=</button>
         </div>
         </div>
       </div>
