@@ -1,107 +1,80 @@
 import React, { Component } from 'react';
 import './App.css';
+import Button from "./Button.js"
+import Buttons from "./Buttons.js"
+import Display from "./Display.js"
+import math from "mathjs";
+import update from "immutability-helper";
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state={
-      firstValue:"",
-      secondValue:"",
-      operator: "",
-      equals: ""
+      operations: []
     }
-
-    this.grabTheNumber = this.grabTheNumber.bind(this);
-    this.grabOperator = this.grabOperator.bind(this);
-    this.equals = this.equals.bind(this);
   }
 
-grabTheNumber(event) {
-    this.setState({firstValue: event.target.value})
-    console.log(event.target.value)
+calculateOperations = () => {
+  let result = this.state.operations.join('')
+  if (result) {
+    result = math.eval(result)
+    result = math.format(result, { precision: 14 })
+    result = String(result)
+    this.setState ({
+      operations: [result],
+    })
+  }
 }
 
-grabOperator(event) {
- this.setState({operator: event.target.value})
- console.log(event.target.value)
-}
-
-equals(event) {
-  this.setState({equals: event.target.value})
-  console.log(event.target.value)
-}
-
-divStyle = {
-  marginTop: "80px"
-};
-
-boxStyle = {
-  marginLeft: "10px"
-}
-
-buttonStyleSubtract = {
-  marginLeft: "10px",
-  color: "#ffb5a8",
-  background: "#ce5c48",
-  fontSize: "25px",
-  paddingRight: "12px",
-  paddingLeft: "12px"
-}
-
-buttonStyleAdd = {
-  color: "#75ff60",
-  background: "#58c647",
-  fontSize: "25px",
-  paddingRight: "10px",
-  paddingLeft: "10px"
-}
-
-buttonDivStyle = {
-  marginTop: "10px"
-}
-
-buttonEqualsStyle = {
-  marginTop: "5px",
-  color: "#4286f4",
-  background: "#ffffff",
-  fontSize: "25px",
-  paddingRight: "10px",
-  paddingLeft: "10px"
-}
-
-numberStyle = {
-  padding: "20px"
-}
-
-row1Style = {
-  marginTop: "40px"
+handleClick = e => {
+    const value=e.target.getAttribute('data-value')
+    switch(value) {
+      case 'clear': this.setState({operations: []})
+        break
+      case 'equal': this.calculateOperations()
+        break
+      default: 
+        const newOperations = update(this.state.operations, {$push: [value],})
+        this.setState({operations: newOperations,})
+        break
+    }
 }
 
   render() {
     return (
       <div className="App">
+      <Buttons>
+      <div className="toprow">
+      <Display data={this.state.operations} />
+      <Button value="clear" onClick={this.handleClick} label="C" />
+      </div>
         <div className="row1" style={this.row1Style}>
-          <button onClick={this.grabTheNumber} value={1} style={this.numberStyle}>1</button>
-          <button onClick={this.grabTheNumber} value={2} style={this.numberStyle}>2</button>
-          <button onClick={this.grabTheNumber} value={3} style={this.numberStyle}>3</button>
+        <Button onClick={this.handleClick} value="1" label="1" />
+        <Button onClick={this.handleClick} value="2" label="2" />
+        <Button onClick={this.handleClick} value="3" label="3" />
+        <Button onClick={this.handleClick} value="/" label="/" />
         </div>
         <div className="row2">
-          <button onClick={this.grabTheNumber} value={4} style={this.numberStyle}>4</button>
-          <button onClick={this.grabTheNumber} value={5} style={this.numberStyle}>5</button>
-          <button onClick={this.grabTheNumber} value={6} style={this.numberStyle}>6</button>
+        <Button onClick={this.handleClick} value="4" label="4" />
+        <Button onClick={this.handleClick} value="5" label="5" />
+        <Button onClick={this.handleClick} value="6" label="6" />
+        <Button onClick={this.handleClick} value="*" label="x" />
         </div>
         <div className="row3">
-          <button onClick={this.grabTheNumber} value={7} style={this.numberStyle}>7</button>
-          <button onClick={this.grabTheNumber} value={8} style={this.numberStyle}>8</button>
-          <button onClick={this.grabTheNumber} value={9} style={this.numberStyle}>9</button>
+        <Button onClick={this.handleClick} value="7" label="7" />
+        <Button onClick={this.handleClick} value="8" label="8" />
+        <Button onClick={this.handleClick} value="9" label="9" />
+        <Button value="-" onClick={this.handleClick} label="-" />
         </div>
-        <div className="buttonDiv" style={this.buttonDivStyle}>
-          <button value="+" onClick={this.grabOperator} style={this.buttonStyleAdd}>+</button>
-          <button value="-" onClick={this.grabOperator} style={this.buttonStyleSubtract}>-</button>
         <div className="equalsDiv">
-          <button value="=" onClick={this.equals} style={this.buttonEqualsStyle}>=</button>
+        <Button value="0" onClick={this.handleClick} label="0" />
+        <Button value="." onClick={this.handleClick} label="." />
+        <Button value="equal" onClick={this.handleClick} label="=" />
+        <Button value="+" onClick={this.handleClick} label="+" />
+
+
         </div>
-        </div>
+        </Buttons>
       </div>
     );
   }
