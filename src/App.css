@@ -10,6 +10,7 @@
   height: 40px;
   margin: 1px;
   box-shadow: -1px 1px gray;
+  border-radius: 5px;
 }
 
 .Display {
@@ -17,6 +18,8 @@
   width: 123px;
   height: 37px;
   margin-top: 1px;
+  border-radius: 5px;
+  margin-right: 3px;
 }
 
 .toprow {
