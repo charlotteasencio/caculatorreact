@@ -18,7 +18,7 @@ calculateOperations = () => {
   let result = this.state.operations.join('')
   if (result) {
     result = math.eval(result)
-    result = math.format(result, { precision: 14 })
+    result = math.format(result, { precision: 10 })
     result = String(result)
     this.setState ({
       operations: [result],
@@ -28,6 +28,7 @@ calculateOperations = () => {
 
 handleClick = e => {
     const value=e.target.getAttribute('data-value')
+    if(this.state.operations.length<10 && this.state.operations[9] !== "+" ) {
     switch(value) {
       case 'clear': this.setState({operations: []})
         break
@@ -37,7 +38,18 @@ handleClick = e => {
         const newOperations = update(this.state.operations, {$push: [value],})
         this.setState({operations: newOperations,})
         break
+    }  
+  } else {
+    switch(value) {
+      case 'clear': this.setState({operations: []})
+        break
+      case 'equal': this.calculateOperations()
+        break
+      default:
+      const noNewOpps =update(this.state.operations, {$push: [""],})
+      this.setState({operations: noNewOpps})
     }
+  }
 }
 
   render() {
@@ -71,7 +83,6 @@ handleClick = e => {
         <Button value="." onClick={this.handleClick} label="." />
         <Button value="equal" onClick={this.handleClick} label="=" />
         <Button value="+" onClick={this.handleClick} label="+" />
-
 
         </div>
         </Buttons>
