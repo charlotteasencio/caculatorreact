@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import Button from "./Button.js"
+import ClearButton from "./ClearButton"
 import Buttons from "./Buttons.js"
 import Display from "./Display.js"
 import math from "mathjs";
 import update from "immutability-helper";
 
 class App extends Component {
+  
   constructor(props){
     super(props);
     this.state={
@@ -21,44 +23,30 @@ calculateOperations = () => {
     result = math.format(result, { precision: 10 })
     result = String(result)
     this.setState ({
-      operations: [result],
+      operations: [result]
     })
   }
 }
 
 handleClick = e => {
-    const value=e.target.getAttribute('data-value')
-    if(this.state.operations.length<10 && this.state.operations[9] !== "+" ) {
-    switch(value) {
-      case 'clear': this.setState({operations: []})
-        break
-      case 'equal': this.calculateOperations()
-        break
-      default: 
-        const newOperations = update(this.state.operations, {$push: [value],})
-        this.setState({operations: newOperations,})
-        break
-    }  
-  } else {
-    switch(value) {
-      case 'clear': this.setState({operations: []})
-        break
-      case 'equal': this.calculateOperations()
-        break
-      default:
-      const noNewOpps =update(this.state.operations, {$push: [""],})
-      this.setState({operations: noNewOpps})
-    }
-  }
+  const value=e.target.getAttribute('data-value')
+  switch(value) {
+    case 'clear': this.setState({operations: []})
+      break
+    case 'equal': this.calculateOperations()
+      break
+    default: 
+      const newOperations = update(this.state.operations, {$push: [value],})
+      this.setState({operations: newOperations,})
+      break
 }
-
+}
   render() {
     return (
       <div className="App">
       <Buttons>
       <div className="toprow">
       <Display data={this.state.operations} />
-      <Button value="clear" onClick={this.handleClick} label="C" />
       </div>
         <div className="row1" style={this.row1Style}>
         <Button onClick={this.handleClick} value="1" label="1" />
@@ -83,7 +71,9 @@ handleClick = e => {
         <Button value="." onClick={this.handleClick} label="." />
         <Button value="equal" onClick={this.handleClick} label="=" />
         <Button value="+" onClick={this.handleClick} label="+" />
-
+        <div className="secondRow">
+        <ClearButton value="clear" onClick={this.handleClick} label="C" />
+        </div>
         </div>
         </Buttons>
       </div>

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-class Button extends Component {
+class ClearButton extends Component {
     render() {
         return (
             <button
                 onClick={this.props.onClick} 
-                className='Button'
+                className='ClearButton'
                 data-value={this.props.value}
                 data-size={this.props.size}>{this.props.label}
             </button>
@@ -13,4 +13,4 @@ class Button extends Component {
     }
 }
 
-export default Button;
+export default ClearButton;

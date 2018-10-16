@@ -1,6 +1,17 @@
 .App {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 150px;
+}
+
+.ClearButton {
+  background: whitesmoke;
+  border: 1px solid black;
+  width: 165px;
+  height: 40px;
+  margin-top: 5px;
+  margin-bottom: 1px;
+  box-shadow: -1px 1px gray;
+  border-radius:  5px;
 }
 
 .Button {
@@ -15,11 +26,15 @@
 
 .Display {
   border: 1.5px solid goldenrod;
-  width: 123px;
-  height: 37px;
+  width: 165px;
+  height: 45px;
   margin-top: 1px;
   border-radius: 5px;
   margin-right: 3px;
+  font-size: 30px;
+  display: flex;
+  justify-content: flex-end;
+  overflow: hidden;
 }
 
 .toprow {
