@@ -14,6 +14,19 @@
   border-radius:  5px;
 }
 
+.ClearButton:hover {
+  background-color: yellowgreen;
+}
+
+.ClearButton:active {
+  box-shadow: 0 .5px rgb(49, 49, 49);
+  transform: translateY(4px);
+}
+
+.ClearButton:focus {
+  outline: 0;
+}
+
 .Button {
   background: whitesmoke;
   border: 1px solid black;
