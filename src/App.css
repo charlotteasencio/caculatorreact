@@ -25,7 +25,7 @@
 }
 
 .Display {
-  border: 1.5px solid goldenrod;
+  border: 1.5px solid rgb(218, 32, 32);
   width: 165px;
   height: 45px;
   margin-top: 1px;
@@ -44,7 +44,7 @@
 }
 
 .Button:hover {
-  background-color: salmon;
+  background-color: rgb(214, 250, 114);
 }
 
 .Button:active {
